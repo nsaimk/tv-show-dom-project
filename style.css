@@ -1,3 +1,23 @@
 #root {
   color: red;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+#root > * {
+  flex-basis: 25%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  margin: 10px;
+}
+
+.card {
+  border: 2px solid grey;
+}
+
+/* @media (min-width: 100px) {
+  #root > * {
+    flex-basis: calc(100% / 4);
+  }
+} */
