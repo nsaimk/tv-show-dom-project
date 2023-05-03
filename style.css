@@ -16,8 +16,15 @@
   border: 2px solid grey;
 }
 
-/* @media (min-width: 100px) {
-  #root > * {
-    flex-basis: calc(100% / 4);
-  }
-} */
+#search-div {
+  border: 2px solid grey;
+  display: flex;
+  justify-content: center;
+  height: 300px;
+}
+#search-bar {
+  border: 2px solid grey;
+  height: 20px;
+  width: 200px;
+  margin-top: 20px;
+}
