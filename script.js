@@ -1,15 +1,22 @@
 //You can edit ALL of the code here
 function setup() {
   const allEpisodes = getAllEpisodes();
-  //makePageForEpisodes(allEpisodes);
+  makePageForEpisodes(allEpisodes);
 }
 
 function makePageForEpisodes(episodeList) {
   const rootElem = document.getElementById("root");
+  //
   while (rootElem.hasChildNodes()) {
     rootElem.removeChild(rootElem.lastChild);
   }
 
+  let matches = document.getElementById("matches");
+  if(episodeList.length < 73){
+      matches.innerText = `Matches ${episodeList.length} of 73 episodes`;
+  } else {
+    matches.innerText = '73 episodes'
+  }
 
   episodeList.forEach((element) => {
     let card = document.createElement("div");
@@ -35,6 +42,7 @@ function makePageForEpisodes(episodeList) {
     );
     rootElem.append(card);
   });
+  console.log(episodeList.length)
 }
 
  function filterEpisodes() {

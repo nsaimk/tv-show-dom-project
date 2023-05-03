@@ -19,8 +19,10 @@
 #search-div {
   border: 2px solid grey;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  height: 300px;
+  align-items: center;
+  height: 70px;
 }
 #search-bar {
   border: 2px solid grey;
