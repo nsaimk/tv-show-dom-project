@@ -37,16 +37,21 @@ function createEpisodeCard(episode) {
   episodeName.innerText = episode.name;
   card.appendChild(episodeName);
 
+  //Episode season
   const episodeNumber = document.createElement("h2");
-  episodeNumber.innerText = `S${episode.season
-    .toString()
-    .padStart(2, "0")}E${episode.number.toString().padStart(2, "0")}`;
+  if (episode.number < 10) {
+    episodeNumber.innerText = `S0${episode.season}E0${episode.number}`;
+  } else {
+    episodeNumber.innerText = `S0${episode.season}E${episode.number}`;
+  }
   card.appendChild(episodeNumber);
 
+  //Episode image
   const episodeImage = document.createElement("img");
   episodeImage.src = episode.image.medium;
   card.appendChild(episodeImage);
 
+  //Episode summary
   const episodeSummary = document.createElement("p");
   episodeSummary.innerHTML = episode.summary;
   card.appendChild(episodeSummary);
@@ -75,11 +80,11 @@ function addSelectListener() {
   allEpisodes.forEach((episode) => {
     const option = document.createElement("option");
     option.value = episode.id;
-    option.text = `S${episode.season
-      .toString()
-      .padStart(2, "0")}E${episode.number.toString().padStart(2, "0")} - ${
-      episode.name
-    }`;
+    if (episode.number < 10) {
+      option.text = `S0${episode.season}E0${episode.number}`;
+    } else {
+      option.text = `S0${episode.season}E${episode.number}`;
+    }
     select.add(option);
   });
   select.addEventListener("change", function () {
