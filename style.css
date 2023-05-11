@@ -12,21 +12,31 @@
   margin: 10px;
 }
 
+/* Level 100 */
 .card {
   border: 2px solid grey;
 }
 
+
+/* Level 200 */
 #search-div {
   border: 2px solid grey;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   height: 70px;
+  margin-left: 105px;
+  margin-right: 105px;
 }
 #search-bar {
   border: 2px solid grey;
   height: 20px;
   width: 200px;
   margin-top: 20px;
+}
+
+/* Level 300 */
+#episode-select{
+  width: 200px;
 }

@@ -1,100 +1,108 @@
 //You can edit ALL of the code here
+
+// Load all episodes
+const allEpisodes = getAllEpisodes();
+
+// Setup the page
 function setup() {
-  const allEpisodes = getAllEpisodes();
   makePageForEpisodes(allEpisodes);
+  addFilterListener();
+  addSelectListener();
 }
 
-function makePageForEpisodes(episodeList) {
+// Level 100
+function makePageForEpisodes(episodes) {
+  // Clear the root element
   const rootElem = document.getElementById("root");
-  //
-  while (rootElem.hasChildNodes()) {
-    rootElem.removeChild(rootElem.lastChild);
-  }
+  rootElem.innerHTML = "";
 
-  let matches = document.getElementById("matches");
-  if(episodeList.length < 73){
-      matches.innerText = `Matches ${episodeList.length} of 73 episodes`;
-  } else {
-    matches.innerText = '73 episodes'
-  }
+  // Show number of matching episodes
+  const matches = document.getElementById("matches");
+  matches.innerText = `${episodes.length} episodes`;
 
-  episodeList.forEach((element) => {
-    let card = document.createElement("div");
-    //Episode name
-    const episodeName = document.createElement("h1");
-    episodeName.innerText = element.name;
-    //Session and episode two digit number
-    const episodeSessionAndEppisode = document.createElement("h1");
-    episodeSessionAndEppisode.innerText = `S0${element.season}0${element.number}`;
-    //Episode Image
-    const episodeImage = document.createElement("img");
-    episodeImage.src = element.image["medium"];
-    //Episode info
-    const episodeSummary = document.createElement("p");
-    episodeSummary.innerHTML = element.summary;
-    //creating a class for style
-    card.className = "card";
-    card.append(
-      episodeName,
-      episodeSessionAndEppisode,
-      episodeImage,
-      episodeSummary
-    );
-    rootElem.append(card);
-  });
-  console.log(episodeList.length)
-}
-
- function filterEpisodes() {
-  const searchInput = document.querySelector("#search-bar");
-  const episodesArray = getAllEpisodes();
-
-  searchInput.addEventListener("input", function () {
-    let value = this.value;
-    let searchedEpisodes = [];
-    episodesArray.forEach(function (episode) {
-      if (
-        episode.name.toLowerCase().includes(value.toLowerCase()) == true ||
-        episode.summary.toLowerCase().includes(value.toLowerCase()) == true
-      ) {
-        searchedEpisodes.push(episode);
-      }
-    });
-    makePageForEpisodes(searchedEpisodes);
+  // Create and append card for each episode
+  episodes.forEach((episode) => {
+    const card = createEpisodeCard(episode);
+    rootElem.appendChild(card);
   });
 }
-filterEpisodes(); 
 
+// Create a card element for the given episode
+function createEpisodeCard(episode) {
+  const card = document.createElement("div");
+  card.className = "card";
 
-/* function filterEpisodes() {
-  const searchInput = document.querySelector("#search-bar");
-  const episodesArray = getAllEpisodes();
-  let searchedEpisodes = [];
+  // Episode name
+  const episodeName = document.createElement("h1");
+  episodeName.innerText = episode.name;
+  card.appendChild(episodeName);
 
+  const episodeNumber = document.createElement("h2");
+  episodeNumber.innerText = `S${episode.season
+    .toString()
+    .padStart(2, "0")}E${episode.number.toString().padStart(2, "0")}`;
+  card.appendChild(episodeNumber);
+
+  const episodeImage = document.createElement("img");
+  episodeImage.src = episode.image.medium;
+  card.appendChild(episodeImage);
+
+  const episodeSummary = document.createElement("p");
+  episodeSummary.innerHTML = episode.summary;
+  card.appendChild(episodeSummary);
+
+  return card;
+}
+
+// Level 200
+function addFilterListener() {
+  const searchInput = document.getElementById("search-bar");
   searchInput.addEventListener("input", function () {
-    let value = this.value.trim(); // remove leading/trailing whitespace
-
-    if (value === "") {
-      // if search bar is empty, show all episodes
-      makePageForEpisodes(episodesArray);
-      return;
-    }
-
-    searchedEpisodes = episodesArray.filter(function (episode) {
+    const value = this.value.toLowerCase();
+    const filteredEpisodes = allEpisodes.filter((episode) => {
       return (
-        episode.name.toLowerCase().includes(value.toLowerCase()) ||
-        episode.summary.toLowerCase().includes(value.toLowerCase())
+        episode.name.toLowerCase().includes(value) ||
+        episode.summary.toLowerCase().includes(value)
       );
     });
-    console.log(searchedEpisodes.length)
-    makePageForEpisodes(searchedEpisodes);
+    makePageForEpisodes(filteredEpisodes);
   });
-} */
+}
 
-//filterEpisodes();
+// Level 300
+function addSelectListener() {
+  const select = document.getElementById("episode-select");
+  allEpisodes.forEach((episode) => {
+    const option = document.createElement("option");
+    option.value = episode.id;
+    option.text = `S${episode.season
+      .toString()
+      .padStart(2, "0")}E${episode.number.toString().padStart(2, "0")} - ${
+      episode.name
+    }`;
+    select.add(option);
+  });
+  select.addEventListener("change", function () {
+    const selectedEpisode = allEpisodes.find(
+      (episode) => episode.id == select.value
+    );
+    showSingle(selectedEpisode);
+  });
+}
 
+// Show a single episode
+function showSingle(episode) {
+  const rootElem = document.getElementById("root");
+  rootElem.innerHTML = "";
 
+  const card = createEpisodeCard(episode);
+  rootElem.appendChild(card);
 
+  const matches = document.getElementById("matches");
+  matches.innerText = "The episode displays";
+}
 
+// Level 350
 
+// -- -- -- -- -- -- \\ // \\ // \\ -- - / | \
 window.onload = setup;
