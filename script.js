@@ -34,6 +34,7 @@ function createEpisodeCard(episode) {
 
   // Episode name
   const episodeName = document.createElement("h1");
+  //console.log(episode)
   episodeName.innerText = episode.name;
   card.appendChild(episodeName);
 
@@ -75,8 +76,13 @@ function addFilterListener() {
 }
 
 // Level 300
+const select = document.getElementById("episode-select");
+const selectOption = document.createElement("option");
+selectOption.innerText = "Select an Episode";
+selectOption.value = "AllEpisodes";
+select.appendChild(selectOption);
+
 function addSelectListener() {
-  const select = document.getElementById("episode-select");
   allEpisodes.forEach((episode) => {
     const option = document.createElement("option");
     option.value = episode.id;
@@ -91,7 +97,11 @@ function addSelectListener() {
     const selectedEpisode = allEpisodes.find(
       (episode) => episode.id == select.value
     );
-    showSingle(selectedEpisode);
+    if (select.value == "AllEpisodes"){
+      makePageForEpisodes(allEpisodes);
+    } else {
+      showSingle(selectedEpisode);
+    } 
   });
 }
 
@@ -108,6 +118,45 @@ function showSingle(episode) {
 }
 
 // Level 350
+const getEpisodesFromApi = function () {
+  /*   fetch("https://api.tvmaze.com/shows/82/episodes")
+    .then(function (response) {
+      //console.log(response)
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    }); */
+  // Same as above but used arrow function
+  fetch("https://dog.ceo/api/breeds/image/random")
+    .then((response) => response.json())
+    .then((data) => console.log(data.message));
+};
+getEpisodesFromApi();
 
-// -- -- -- -- -- -- \\ // \\ // \\ -- - / | \
+/// get api to browser local stotage
+/* const storageKey = "episodesData";
+
+const getEpisodesFromApi = function () {
+  const storedData = localStorage.getItem(storageKey);
+  if (storedData) {
+    // If the data is already available in local storage, don't fetch again
+    const data = JSON.parse(storedData);
+    console.log(data);
+  } else {
+    fetch("https://api.tvmaze.com/shows/82/episodes")
+      .then((response) => response.json())
+      .then((data) => {
+        localStorage.setItem(storageKey, JSON.stringify(data));
+        console.log(data);
+      });
+  }
+};
+getEpisodesFromApi(); */
+
+///////////////////////////////////////////////
+//            \\  //      ||                 /
+//              ||      //  \\              /
+//              ||        ||               /
+// -- -- -- -- -- -- \\ // \\ // \\ -- -  / | \
 window.onload = setup;
