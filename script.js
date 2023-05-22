@@ -1,13 +1,22 @@
 //You can edit ALL of the code here
 
 // Load all episodes
-const allEpisodes = getAllEpisodes();
+
+//Level 350
+const episodesApi = function () {
+  fetch("https://api.tvmaze.com/shows/82/episodes")
+    .then((response) => response.json())
+    .then((data) => setup(data));
+};
+//episodesApi();
+//api in progress instead
+//const allEpisodes = getAllEpisodes();
 
 // Setup the page
-function setup() {
+function setup(allEpisodes) {
   makePageForEpisodes(allEpisodes);
-  addFilterListener();
-  addSelectListener();
+  addFilterListener(allEpisodes);
+  addSelectListener(allEpisodes);
 }
 
 // Level 100
@@ -34,7 +43,6 @@ function createEpisodeCard(episode) {
 
   // Episode name
   const episodeName = document.createElement("h1");
-  //console.log(episode)
   episodeName.innerText = episode.name;
   card.appendChild(episodeName);
 
@@ -61,7 +69,7 @@ function createEpisodeCard(episode) {
 }
 
 // Level 200
-function addFilterListener() {
+function addFilterListener(allEpisodes) {
   const searchInput = document.getElementById("search-bar");
   searchInput.addEventListener("input", function () {
     const value = this.value.toLowerCase();
@@ -82,7 +90,7 @@ selectOption.innerText = "Select an Episode";
 selectOption.value = "AllEpisodes";
 select.appendChild(selectOption);
 
-function addSelectListener() {
+function addSelectListener(allEpisodes) {
   allEpisodes.forEach((episode) => {
     const option = document.createElement("option");
     option.value = episode.id;
@@ -97,11 +105,11 @@ function addSelectListener() {
     const selectedEpisode = allEpisodes.find(
       (episode) => episode.id == select.value
     );
-    if (select.value == "AllEpisodes"){
+    if (select.value == "AllEpisodes") {
       makePageForEpisodes(allEpisodes);
     } else {
       showSingle(selectedEpisode);
-    } 
+    }
   });
 }
 
@@ -118,45 +126,11 @@ function showSingle(episode) {
 }
 
 // Level 350
-const getEpisodesFromApi = function () {
-  /*   fetch("https://api.tvmaze.com/shows/82/episodes")
-    .then(function (response) {
-      //console.log(response)
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-    }); */
-  // Same as above but used arrow function
-  fetch("https://dog.ceo/api/breeds/image/random")
-    .then((response) => response.json())
-    .then((data) => console.log(data.message));
-};
-getEpisodesFromApi();
 
-/// get api to browser local stotage
-/* const storageKey = "episodesData";
-
-const getEpisodesFromApi = function () {
-  const storedData = localStorage.getItem(storageKey);
-  if (storedData) {
-    // If the data is already available in local storage, don't fetch again
-    const data = JSON.parse(storedData);
-    console.log(data);
-  } else {
-    fetch("https://api.tvmaze.com/shows/82/episodes")
-      .then((response) => response.json())
-      .then((data) => {
-        localStorage.setItem(storageKey, JSON.stringify(data));
-        console.log(data);
-      });
-  }
-};
-getEpisodesFromApi(); */
-
+////////////////////////////////////////////////
 ///////////////////////////////////////////////
-//            \\  //      ||                 /
-//              ||      //  \\              /
-//              ||        ||               /
+//   |\   / \   |\  | --T--
+//   | | |   |  | \ |   |
+//   |/   \_/   |  \|   |
 // -- -- -- -- -- -- \\ // \\ // \\ -- -  / | \
-window.onload = setup;
+window.onload = episodesApi;
