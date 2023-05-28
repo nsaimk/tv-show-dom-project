@@ -2,7 +2,6 @@
 
 // Load all episodes
 
-
 /* 
 //Level 400
 const selectShow = document.getElementById("show-select");
@@ -160,9 +159,61 @@ function showSingle(episode) {
 // -- -- -- -- -- -- \\ // \\ // \\ -- -  / | \
 //window.onload = episodesApi;
 
-
-
 //Notes
 
-//line 127 
+//line 127
 // The main difference between the two methods is that appendChild() always appends the option as the last child of the select element, whereas add() gives you the flexibility to specify the position by providing an index. If you don't provide an index when using add(), it will behave like appendChild() and append the option as the last child.
+
+//consts
+const allShows = getAllShows();
+const root = document.getElementById("root");
+//
+function startPage() {
+  root.innerText = "";
+  allShows.forEach((show) => {
+    const showCard = createShowCard(show);
+    root.append(showCard);
+  });
+}
+
+function createShowCard(show) {
+  const card = document.createElement("div");
+  card.className = "show-card";
+  const cardTop = document.createElement("div");
+  cardTop.className = "card-top";
+  const rate = document.createElement("b");
+  rate.innerHTML = "&starf;" + show.rating.average;
+  const like = document.createElement("button");
+  like.innerHTML = "&hearts";
+  const name = document.createElement("h1");
+  name.innerText = `${show.name}`;
+  const image = document.createElement("img");
+  image.src = show.image.medium;
+  const summary = document.createElement("p");
+  summary.innerHTML = show.summary;
+  const genre = document.createElement("p");
+  genre.innerText = getGenreText(show.genres);
+
+  cardTop.appendChild(rate);
+  cardTop.appendChild(like);
+  card.appendChild(cardTop);
+  card.appendChild(name);
+  card.appendChild(image);
+  card.appendChild(summary);
+  card.appendChild(genre);
+
+  return card
+}
+
+ function getGenreText(genreArray) {
+  if (genreArray.length === 1) {
+    return genreArray[0];
+  } else {
+    return genreArray.join(" * ");
+  }
+} 
+
+
+//
+//window.onload = startPage();
+startPage();
