@@ -9,23 +9,109 @@
   </head>
 
   <body>
-    <div id="search-div">
-      <!-- Episode Selector -->
+    <header>
+      <div id="header-top">
+        <h1>TV SHOW DOM Project</h1>
+      </div>
+      <div id="header-bottom">
+        <div>
+          <div>Cinemas</div>
+        </div>
+        <div>
+          <select>
+            <option value="">Select a show</option>
+            <option value="">Game of thrones</option>
+            <option value="">Lost</option>
+          </select>
+        </div>
+
+        <div>
+          <input
+            type="text"
+            name=""
+            id="search-bar"
+            placeholder="search here..."
+          />
+          <p id="matches">shows displayed</p>
+        </div>
+      </div>
+    </header>
+    <!--     <div id="search-div">
+       Show Selector 
+      <select name="show" id="show-select">
+
+      </select>
+       Episode Selector 
         <select name="episodes" id="episode-select">
-<!--           <option value="none" hidden>Select an Episode</option> -->
         </select>
-        <!-- Live Search -->
+
+
+        Live Search 
         <input type="text" name="" id="search-bar" placeholder="search here..."/>
-        <!--  -->
       <p id="matches">test</p>
-    </div>
+    </div> -->
+
     <!--  -->
-    <div id="root"></div>
-    
+    <main>
+      <div id="root">
+        <div class="show-card">
+          <div id="card-top">
+            <b>&starf; 8.5</b>
+            <button>&hearts;</button>
+          </div>
+          <h1>Game of Thrones <b> </b></h1>
+          <img
+            src="https://w0.peakpx.com/wallpaper/756/534/HD-wallpaper-game-of-thrones-movie-stark-tv-serial-winter-winter-is-coming-thumbnail.jpg"
+            alt=""
+          />
+          <div>
+            <p></p>
+          </div>
+          <p>
+            Captain Sharon Raydor faces the challenge of earning the trust and loyalty of her officers in <b>Major Crimes</b>, who are still in shock over their former Deputy Chief's exit, while trying to close the department's highest-profile cases. Raydor decides to house Rusty Beck, the key witness for a murder case, in her own home, paying for him to attend the Catholic high school her children attended.
+          </p>
+          <p>Horror * Comedy * Romantic</p>
+        </div>
+        <div class="show-card">
+          <h1>Game of Thrones</h1>
+        </div>
+        <div class="show-card">
+          <h1>Game of Thrones</h1>
+        </div>
+        <div class="show-card">
+          <h1>Game of Thrones</h1>
+        </div>
+        <div class="show-card">
+          <h1>Game of Thrones</h1>
+        </div>
+        <div class="show-card">
+          <h1>Game of Thrones</h1>
+        </div>
+        <div class="show-card">
+          <h1>Game of Thrones</h1>
+        </div>
+        <div class="show-card">
+          <h1>Game of Thrones</h1>
+        </div>
+        <div class="show-card">
+          <h1>Game of Thrones</h1>
+        </div>
+        <div class="show-card">
+          <h1>Game of Thrones</h1>
+        </div>
+        <div class="show-card">
+          <h1>Game of Thrones</h1>
+        </div>
+        <div class="show-card">
+          <h1>Game of Thrones</h1>
+        </div>
+      </div>
+    </main>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
-
+    <!-- Loads all Shows -->
+    <script src="shows.js"></script>
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
     <p>

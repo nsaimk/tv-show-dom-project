@@ -2,6 +2,31 @@
 
 // Load all episodes
 
+
+/* 
+//Level 400
+const selectShow = document.getElementById("show-select");
+const allShows = getAllShows();
+function addShowListener() {
+  allShows.forEach((episode) => {
+    const showOption = document.createElement("option");
+    showOption.value = episode.id;
+    showOption.text = episode.name;
+    selectShow.add(showOption);
+  });
+  selectShow.addEventListener("change", function () {
+    const selectedEpisode = allShows.find(
+      (episode) => episode.id == select.value
+    );
+      makePageForEpisodes(selectedEpisode);
+  
+  });
+}
+addShowListener();
+
+
+
+
 //Level 350
 const episodesApi = function () {
   fetch("https://api.tvmaze.com/shows/82/episodes")
@@ -99,7 +124,7 @@ function addSelectListener(allEpisodes) {
     } else {
       option.text = `S0${episode.season}E${episode.number}`;
     }
-    select.add(option);
+    select.appendChild(option);
   });
   select.addEventListener("change", function () {
     const selectedEpisode = allEpisodes.find(
@@ -123,9 +148,9 @@ function showSingle(episode) {
 
   const matches = document.getElementById("matches");
   matches.innerText = "The episode displays";
-}
+} */
 
-// Level 350
+// Level 400
 
 ////////////////////////////////////////////////
 ///////////////////////////////////////////////
@@ -133,4 +158,11 @@ function showSingle(episode) {
 //   | | |   |  | \ |   |
 //   |/   \_/   |  \|   |
 // -- -- -- -- -- -- \\ // \\ // \\ -- -  / | \
-window.onload = episodesApi;
+//window.onload = episodesApi;
+
+
+
+//Notes
+
+//line 127 
+// The main difference between the two methods is that appendChild() always appends the option as the last child of the select element, whereas add() gives you the flexibility to specify the position by providing an index. If you don't provide an index when using add(), it will behave like appendChild() and append the option as the last child.

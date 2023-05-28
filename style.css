@@ -1,5 +1,8 @@
+/* body{
+  background-color: rgb(176, 65, 65);
+}
 #root {
-  color: red;
+  color: rgb(41, 7, 7);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -12,13 +15,11 @@
   margin: 10px;
 }
 
-/* Level 100 */
 .card {
   border: 2px solid grey;
 }
 
 
-/* Level 200 */
 #search-div {
   border: 2px solid grey;
   display: flex;
@@ -36,7 +37,74 @@
   margin-top: 20px;
 }
 
-/* Level 300 */
 #episode-select{
   width: 200px;
+} */
+
+body {
+  background-color: rgb(32, 29, 29);
+  margin: 0px;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgb(95, 108, 119);
+  z-index: 999;
+}
+#header-top {
+  align-content: center;
+}
+#header-bottom {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* root */
+main {
+  margin: 50px;
+  margin-top: 300px;
+}
+#root {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.show-card {
+  border: 2px solid white;
+  margin: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+  
+}
+.show-card:hover {
+  transform: scale(1.1);
+  background-color: rgb(113, 96, 96);
+  
+}
+.show-card h1 {
+  color: aliceblue;
+}
+.show-card img {
+  height: 300px;
+  width: 90%;
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.show-card b{
+  color: rgba(255, 217, 0, 0.807);
+  width: 1px;
+  align-self:flex-end;
+  
+}
+
+#card-top{
+  display: flex;
+  justify-content: space-between;
+  margin: 4px;
 }
