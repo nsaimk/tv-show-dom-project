@@ -52,15 +52,22 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
+  height: 210px;
   background-color: rgb(95, 108, 119);
   z-index: 999;
 }
-#header-top {
-  align-content: center;
+/* #header-top {
+  align-content: end;
+  justify-content: end;
+} */
+#header-top h1{
+  text-align:initial;
 }
 #header-bottom {
   display: flex;
   justify-content: space-around;
+  margin-left: 170px;
+  margin-right: 170px;
 }
 
 /* root */
@@ -79,7 +86,7 @@ main {
   margin-top: 10px;
   margin-bottom: 10px;
   transition: transform 0.3s ease;
-  
+  background-color: rgb(77, 115, 102);
 }
 .show-card:hover {
   transform: scale(1.1);
@@ -108,3 +115,5 @@ main {
   justify-content: space-between;
   margin: 4px;
 }
+
+/* end of root */

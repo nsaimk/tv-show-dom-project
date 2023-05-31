@@ -168,16 +168,81 @@ function showSingle(episode) {
 const allShows = getAllShows();
 const root = document.getElementById("root");
 //
-function startPage() {
+/* function startPage() {
   root.innerText = "";
   allShows.forEach((show) => {
     const showCard = createShowCard(show);
     root.append(showCard);
   });
+} */
+function startPage() {
+  root.innerText = "";
+  allShows.forEach((show) => {
+    const showCard = createShowCard(show);
+    showCard.addEventListener("click", () => {
+      root.innerText = "";
+      getApi(`https://api.tvmaze.com/shows/${show.id}/episodes`);
+    });
+    root.append(showCard);
+  });
 }
 
-function createShowCard(show) {
+function getApi(link) {
+  fetch(link)
+    .then((response) => response.json())
+    .then((data) => makePageForEpisodes(data));
+}
+//
+function makePageForEpisodes(episodes) {
+  // Clear the root element
+  root.innerHTML = "";
+
+  // Show number of matching episodes
+  // const matches = document.getElementById("matches");
+  // matches.innerText = `${episodes.length} episodes`;
+
+  // Create and append card for each episode
+  episodes.forEach((episode) => {
+    const card = createEpisodeCard(episode);
+    root.appendChild(card);
+  });
+}
+
+// Create a card element for the given episode
+function createEpisodeCard(episode) {
   const card = document.createElement("div");
+  //card.className = "card";
+
+  // Episode name
+  const episodeName = document.createElement("h1");
+  episodeName.innerText = episode.name;
+  card.appendChild(episodeName);
+
+  //Episode season
+  const episodeNumber = document.createElement("h2");
+  if (episode.number < 10) {
+    episodeNumber.innerText = `S0${episode.season}E0${episode.number}`;
+  } else {
+    episodeNumber.innerText = `S0${episode.season}E${episode.number}`;
+  }
+  card.appendChild(episodeNumber);
+
+  //Episode image
+  const episodeImage = document.createElement("img");
+  episodeImage.src = episode.image.medium;
+  card.appendChild(episodeImage);
+
+  //Episode summary
+  const episodeSummary = document.createElement("p");
+  episodeSummary.innerHTML = episode.summary;
+  card.appendChild(episodeSummary);
+
+  return card;
+}
+
+//
+function createShowCard(show) {
+  const card = document.createElement("button");
   card.className = "show-card";
   const cardTop = document.createElement("div");
   cardTop.className = "card-top";
@@ -190,7 +255,20 @@ function createShowCard(show) {
   const image = document.createElement("img");
   image.src = show.image.medium;
   const summary = document.createElement("p");
-  summary.innerHTML = show.summary;
+  summary.innerHTML = truncateSummary(show.summary, 70);
+
+  if (hasMoreWords(show.summary, 70)) {
+    const readMoreLink = document.createElement("a");
+    readMoreLink.href = "#";
+    readMoreLink.innerText = "Read More";
+    readMoreLink.addEventListener("click", () => {
+      summary.innerText = show.summary;
+      readMoreLink.style.display = "none";
+    });
+
+    summary.appendChild(readMoreLink);
+  }
+  //
   const genre = document.createElement("p");
   genre.innerText = getGenreText(show.genres);
 
@@ -202,17 +280,29 @@ function createShowCard(show) {
   card.appendChild(summary);
   card.appendChild(genre);
 
-  return card
+  return card;
 }
 
- function getGenreText(genreArray) {
+function getGenreText(genreArray) {
   if (genreArray.length === 1) {
     return genreArray[0];
   } else {
     return genreArray.join(" * ");
   }
-} 
+}
+function truncateSummary(summary, maxWords) {
+  const words = summary.split(" ");
+  if (words.length > maxWords) {
+    return words.slice(0, maxWords).join(" ") + " ...";
+  }
+  return summary;
+}
 
+function hasMoreWords(summary, maxWords) {
+  const words = summary.split(" ");
+  return words.length > maxWords;
+}
+//
 
 //
 //window.onload = startPage();
