@@ -167,16 +167,14 @@ function showSingle(episode) {
 //consts
 const allShows = getAllShows();
 const root = document.getElementById("root");
+const backToShows = document.getElementById('cinema');
+const header = document.getElementById("episodeSearch");
+  const episodeSearch = document.createElement("select");
+
 //
-/* function startPage() {
-  root.innerText = "";
-  allShows.forEach((show) => {
-    const showCard = createShowCard(show);
-    root.append(showCard);
-  });
-} */
 function startPage() {
   root.innerText = "";
+  header.innerText = ""
   allShows.forEach((show) => {
     const showCard = createShowCard(show);
     showCard.addEventListener("click", () => {
@@ -187,14 +185,15 @@ function startPage() {
   });
 }
 
+backToShows.addEventListener('click', startPage);
+
 function getApi(link) {
   fetch(link)
     .then((response) => response.json())
     .then((data) => makePageForEpisodes(data));
 }
-//
+// Episode Page
 function makePageForEpisodes(episodes) {
-  // Clear the root element
   root.innerHTML = "";
 
   // Show number of matching episodes
@@ -205,6 +204,10 @@ function makePageForEpisodes(episodes) {
   episodes.forEach((episode) => {
     const card = createEpisodeCard(episode);
     root.appendChild(card);
+    const episodeOption = document.createElement('option');
+    episodeOption.innerText = episode.episodeNumber
+    episodeSearch.appendChild(episodeOption);
+    header.appendChild(episodeSearch)
   });
 }
 
@@ -239,8 +242,9 @@ function createEpisodeCard(episode) {
 
   return card;
 }
-
-//
+// End of Episode Page
+//---------_-_--------\\
+//Start(Show) Page
 function createShowCard(show) {
   const card = document.createElement("button");
   card.className = "show-card";
@@ -302,7 +306,7 @@ function hasMoreWords(summary, maxWords) {
   const words = summary.split(" ");
   return words.length > maxWords;
 }
-//
+//End of Start(Show) Page
 
 //
 //window.onload = startPage();

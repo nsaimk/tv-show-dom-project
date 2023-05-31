@@ -56,10 +56,12 @@ header {
   background-color: rgb(95, 108, 119);
   z-index: 999;
 }
-/* #header-top {
-  align-content: end;
-  justify-content: end;
-} */
+#cinema{
+  background-color: rgb(166, 97, 48);
+  width: 60px;
+  height: 60px;
+  font-size: 46px;
+}
 #header-top h1{
   text-align:initial;
 }
@@ -90,7 +92,7 @@ main {
 }
 .show-card:hover {
   transform: scale(1.1);
-  background-color: rgb(113, 96, 96);
+  background-color: rgb(95, 188, 172);
   
 }
 .show-card h1 {
