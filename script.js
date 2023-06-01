@@ -167,14 +167,16 @@ function showSingle(episode) {
 //consts
 const allShows = getAllShows();
 const root = document.getElementById("root");
-const backToShows = document.getElementById('cinema');
+const pageState = 'show'
+const backToShows = document.getElementById("cinema");
 const header = document.getElementById("episodeSearch");
-  const episodeSearch = document.createElement("select");
+const episodeSearch = document.createElement("select");
+
 
 //
 function startPage() {
   root.innerText = "";
-  header.innerText = ""
+  header.innerText = "";
   allShows.forEach((show) => {
     const showCard = createShowCard(show);
     showCard.addEventListener("click", () => {
@@ -185,7 +187,7 @@ function startPage() {
   });
 }
 
-backToShows.addEventListener('click', startPage);
+backToShows.addEventListener("click", startPage);
 
 function getApi(link) {
   fetch(link)
@@ -204,17 +206,17 @@ function makePageForEpisodes(episodes) {
   episodes.forEach((episode) => {
     const card = createEpisodeCard(episode);
     root.appendChild(card);
-    const episodeOption = document.createElement('option');
-    episodeOption.innerText = episode.episodeNumber
+    const episodeOption = document.createElement("option");
+    episodeOption.innerText = episode.episodeNumber;
     episodeSearch.appendChild(episodeOption);
-    header.appendChild(episodeSearch)
+    header.appendChild(episodeSearch);
   });
 }
 
 // Create a card element for the given episode
 function createEpisodeCard(episode) {
   const card = document.createElement("div");
-  //card.className = "card";
+  card.className = "show-card";
 
   // Episode name
   const episodeName = document.createElement("h1");
@@ -253,7 +255,7 @@ function createShowCard(show) {
   const rate = document.createElement("b");
   rate.innerHTML = "&starf;" + show.rating.average;
   const like = document.createElement("button");
-  like.innerHTML = "&hearts";
+  like.innerHTML = "&hearts;";
   const name = document.createElement("h1");
   name.innerText = `${show.name}`;
   const image = document.createElement("img");
