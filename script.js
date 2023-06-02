@@ -167,7 +167,7 @@ function showSingle(episode) {
 //consts
 const allShows = getAllShows();
 const root = document.getElementById("root");
-const pageState = "show";
+let pageState = "show";
 const backToShows = document.getElementById("cinema");
 const episodeSearch = document.getElementById("episodeSearch");
 const episodeSelector = document.createElement("select");
@@ -180,16 +180,16 @@ const firstOptionShow = document.createElement("option");
 firstOptionShow.innerText = "Select a Show";
 firstOptionShow.value = "AllShows";
 showSelector.appendChild(firstOptionShow);
+const matches = document.getElementById("matches");
+matches.innerText = `${allShows.length} shows displayed`;
 //
 function startPage() {
-
-  header(); 
+  header();
   showListener(); // Register event listener after updating the options
   selectedEpisode();
-
 }
 
-function selectedEpisode(){
+function selectedEpisode() {
   allShows.forEach((show) => {
     const showCard = createShowCard(show);
     showCard.addEventListener("click", () => {
@@ -201,7 +201,7 @@ function selectedEpisode(){
   });
 }
 
-function header(){
+function header() {
   root.innerText = "";
   episodeSearch.innerText = "";
   showSelector.innerHTML = ""; // Clear previous options before adding new ones
@@ -222,29 +222,41 @@ function getApi(link) {
     .then((response) => response.json())
     .then((data) => makePageForEpisodes(data));
 }
-//cahnges done
+
 backToShows.addEventListener("click", startPage);
 
 function showListener() {
   showSelector.addEventListener("change", function () {
-    console.log(showSelector.value)
+    console.log(showSelector.value);
 
     const selectedShowId = showSelector.value;
-      const selectedShow = allShows.find((show) => show.id == selectedShowId);
-      if (selectedShow) {
+    const selectedShow = allShows.find((show) => show.id == selectedShowId);
+    if (selectedShow) {
+      root.innerText = "";
+      const showCard = createShowCard(selectedShow);
+      showCard.addEventListener("click", () => {
         root.innerText = "";
-        const showCard = createShowCard(selectedShow);
-        showCard.addEventListener("click", () => {
-          root.innerText = "";
-          getApi(`https://api.tvmaze.com/shows/${selectedShowId}/episodes`);
-        });
-        root.appendChild(showCard);
-      }
-    
+        getApi(`https://api.tvmaze.com/shows/${selectedShowId}/episodes`);
+      });
+      root.appendChild(showCard);
+    }
   });
 }
 //
-
+function addFilterListener(allEpisodes) {
+  const searchInput = document.getElementById("search-bar");
+  searchInput.addEventListener("input", function () {
+    const value = this.value.toLowerCase();
+    const filteredEpisodes = allEpisodes.filter((episode) => {
+      return (
+        episode.name.toLowerCase().includes(value) ||
+        episode.summary.toLowerCase().includes(value)
+      );
+    });
+    createShowCard(filteredEpisodes);
+  });
+}
+addFilterListener(allShows);
 //Start(Show) Page
 function createShowCard(show) {
   const card = document.createElement("button");
@@ -314,17 +326,15 @@ function hasMoreWords(summary, maxWords) {
 // Episode Page
 function makePageForEpisodes(episodes) {
   root.innerHTML = "";
-
-  // Show number of matching episodes
-  // const matches = document.getElementById("matches");
-  // matches.innerText = `${episodes.length} episodes`;
-
-  // Create and append card for each episode
+  matches.innerText = `${episodes.length} episodes`;
   episodes.forEach((episode) => {
     const card = createEpisodeCard(episode);
     root.appendChild(card);
     const episodeOption = document.createElement("option");
-    episodeOption.innerText = episode.episodeNumber;
+    episodeOption.text = `S0${episode.season}E0${episode.number}`;
+    if (episode.number >= 10) {
+      episodeOption.text = `S0${episode.season}E${episode.number}`;
+    }
     episodeSelector.appendChild(episodeOption);
     episodeSearch.appendChild(episodeSelector);
   });
@@ -335,12 +345,10 @@ function createEpisodeCard(episode) {
   const card = document.createElement("div");
   card.className = "episode-card";
 
-  // Episode name
   const episodeName = document.createElement("h1");
   episodeName.innerText = episode.name;
   card.appendChild(episodeName);
 
-  //Episode season
   const episodeNumber = document.createElement("h2");
   if (episode.number < 10) {
     episodeNumber.innerText = `S0${episode.season}E0${episode.number}`;
@@ -349,18 +357,59 @@ function createEpisodeCard(episode) {
   }
   card.appendChild(episodeNumber);
 
-  //Episode image
   const episodeImage = document.createElement("img");
   episodeImage.src = episode.image.medium;
   card.appendChild(episodeImage);
 
-  //Episode summary
   const episodeSummary = document.createElement("p");
   episodeSummary.innerHTML = truncateSummary(episode.summary, 70);
   card.appendChild(episodeSummary);
 
   return card;
 }
+
+//
+/* const select = document.getElementById("episode-select");
+const selectOption = document.createElement("option");
+selectOption.innerText = "Select an Episode";
+selectOption.value = "AllEpisodes";
+select.appendChild(selectOption);
+
+
+function addSelectListener(allEpisodes) {
+  allEpisodes.forEach((episode) => {
+    const option = document.createElement("option");
+    option.value = episode.id;
+    if (episode.number < 10) {
+      option.text = `S0${episode.season}E0${episode.number}`;
+    } else {
+      option.text = `S0${episode.season}E${episode.number}`;
+    }
+    select.appendChild(option);
+  });
+  select.addEventListener("change", function () {
+    const selectedEpisode = allEpisodes.find(
+      (episode) => episode.id == select.value
+    );
+    if (select.value == "AllEpisodes") {
+      makePageForEpisodes(allEpisodes);
+    } else {
+      showSingle(selectedEpisode);
+    }
+  });
+}
+
+// Show a single episode
+function showSingle(episode) {
+  const rootElem = document.getElementById("root");
+  rootElem.innerHTML = "";
+
+  const card = createEpisodeCard(episode);
+  rootElem.appendChild(card);
+
+  const matches = document.getElementById("matches");
+  matches.innerText = "The episode displays";
+} */
 // End of Episode Page
 //---------_-_--------\\
 //Search Bar

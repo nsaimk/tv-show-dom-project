@@ -71,7 +71,9 @@ header {
   margin-left: 170px;
   margin-right: 170px;
 }
-
+#matches{
+  color: aliceblue;
+}
 /* root */
 main {
   margin: 50px;
