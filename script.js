@@ -169,7 +169,7 @@ const allShows = getAllShows();
 const root = document.getElementById("root");
 const pageState = "show";
 const backToShows = document.getElementById("cinema");
-const header = document.getElementById("episodeSearch");
+const episodeSearch = document.getElementById("episodeSearch");
 const episodeSelector = document.createElement("select");
 const firstOptionEpisode = document.createElement("option");
 firstOptionEpisode.innerText = "Select an Episode";
@@ -180,43 +180,41 @@ const firstOptionShow = document.createElement("option");
 firstOptionShow.innerText = "Select a Show";
 firstOptionShow.value = "AllShows";
 showSelector.appendChild(firstOptionShow);
-
 //
 function startPage() {
-/*   root.innerText = "";
-  header.innerText = "";
+
+  header(); 
+  showListener(); // Register event listener after updating the options
+  selectedEpisode();
+
+}
+
+function selectedEpisode(){
   allShows.forEach((show) => {
     const showCard = createShowCard(show);
     showCard.addEventListener("click", () => {
+      const showId = show.id;
       root.innerText = "";
-      getApi(`https://api.tvmaze.com/shows/${show.id}/episodes`);
+      getApi(`https://api.tvmaze.com/shows/${showId}/episodes`);
     });
     root.append(showCard);
   });
-  showListener(); */
-    root.innerText = "";
-    header.innerText = "";
-    showSelector.innerHTML = ""; // Clear previous options before adding new ones
-    const allShowsOption = document.createElement("option");
-    allShowsOption.innerText = "Select a Show";
-    allShowsOption.value = "AllShows";
-    showSelector.appendChild(allShowsOption);
-    allShows.forEach((show) => {
-      const showOption = document.createElement("option");
-      showOption.value = show.id;
-      showOption.innerText = show.name;
-      showSelector.appendChild(showOption);
-    });
-    showListener(); // Register event listener after updating the options
+}
 
-    allShows.forEach((show) => {
-      const showCard = createShowCard(show);
-      showCard.addEventListener("click", () => {
-        root.innerText = "";
-        getApi(`https://api.tvmaze.com/shows/${show.id}/episodes`);
-      });
-      root.append(showCard);
-    });
+function header(){
+  root.innerText = "";
+  episodeSearch.innerText = "";
+  showSelector.innerHTML = ""; // Clear previous options before adding new ones
+  const allShowsOption = document.createElement("option");
+  allShowsOption.innerText = "Select a Show";
+  allShowsOption.value = "AllShows";
+  showSelector.appendChild(allShowsOption);
+  allShows.forEach((show) => {
+    const showOption = document.createElement("option");
+    showOption.value = show.id;
+    showOption.innerText = show.name;
+    showSelector.appendChild(showOption);
+  });
 }
 
 function getApi(link) {
@@ -224,32 +222,25 @@ function getApi(link) {
     .then((response) => response.json())
     .then((data) => makePageForEpisodes(data));
 }
-
+//cahnges done
 backToShows.addEventListener("click", startPage);
 
 function showListener() {
-  /*     allShows.forEach((show) => {
-      const showOption = document.createElement("option");
-      showOption.value = show.id;
-      showOption.text = show.name;
-      showSelector.add(showOption);
-    });
-    showSelector.addEventListener("change", function () {
-      const selectedEpisode = allShows.find((show) => show.id == select.value);
-      createShowCard(selectedEpisode);
-    }); */
   showSelector.addEventListener("change", function () {
+    console.log(showSelector.value)
+
     const selectedShowId = showSelector.value;
-    if (selectedShowId === "AllShows") {
-      startPage(); // Show all shows when "AllShows" option is selected
-    } else {
       const selectedShow = allShows.find((show) => show.id == selectedShowId);
       if (selectedShow) {
         root.innerText = "";
         const showCard = createShowCard(selectedShow);
+        showCard.addEventListener("click", () => {
+          root.innerText = "";
+          getApi(`https://api.tvmaze.com/shows/${selectedShowId}/episodes`);
+        });
         root.appendChild(showCard);
       }
-    }
+    
   });
 }
 //
@@ -258,6 +249,7 @@ function showListener() {
 function createShowCard(show) {
   const card = document.createElement("button");
   card.className = "show-card";
+  card.dataset.showId = show.id;
   const cardTop = document.createElement("div");
   cardTop.className = "card-top";
   const rate = document.createElement("b");
@@ -334,7 +326,7 @@ function makePageForEpisodes(episodes) {
     const episodeOption = document.createElement("option");
     episodeOption.innerText = episode.episodeNumber;
     episodeSelector.appendChild(episodeOption);
-    header.appendChild(episodeSelector);
+    episodeSearch.appendChild(episodeSelector);
   });
 }
 
