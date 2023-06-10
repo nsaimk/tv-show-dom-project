@@ -181,12 +181,14 @@ firstOptionShow.innerText = "Select a Show";
 firstOptionShow.value = "AllShows";
 showSelector.appendChild(firstOptionShow);
 const matches = document.getElementById("matches");
-matches.innerText = `${allShows.length} shows displayed`;
+matches.innerText = `${allShows.length} shows are displayed`;
 //
 function startPage() {
   header();
   showListener(); // Register event listener after updating the options
   selectedEpisode();
+  matches.innerText = `${allShows.length} shows are displayed`;
+  addFilterListener(allShows);
 }
 
 function selectedEpisode() {
@@ -198,6 +200,7 @@ function selectedEpisode() {
       getApi(`https://api.tvmaze.com/shows/${showId}/episodes`);
     });
     root.append(showCard);
+
   });
 }
 
@@ -227,8 +230,7 @@ backToShows.addEventListener("click", startPage);
 
 function showListener() {
   showSelector.addEventListener("change", function () {
-    console.log(showSelector.value);
-
+    matches.innerText = `1 show is displayed`;
     const selectedShowId = showSelector.value;
     const selectedShow = allShows.find((show) => show.id == selectedShowId);
     if (selectedShow) {
@@ -326,7 +328,7 @@ function hasMoreWords(summary, maxWords) {
 // Episode Page
 function makePageForEpisodes(episodes) {
   root.innerHTML = "";
-  matches.innerText = `${episodes.length} episodes`;
+  matches.innerText = `${episodes.length} episodes are displayed`;
   episodes.forEach((episode) => {
     const card = createEpisodeCard(episode);
     root.appendChild(card);
@@ -337,6 +339,23 @@ function makePageForEpisodes(episodes) {
     }
     episodeSelector.appendChild(episodeOption);
     episodeSearch.appendChild(episodeSelector);
+    
+  });
+}
+function showListener() {
+  showSelector.addEventListener("change", function () {
+    matches.innerText = `1 show is displayed`;
+    const selectedShowId = showSelector.value;
+    const selectedShow = allShows.find((show) => show.id == selectedShowId);
+    if (selectedShow) {
+      root.innerText = "";
+      const showCard = createShowCard(selectedShow);
+      showCard.addEventListener("click", () => {
+        root.innerText = "";
+        getApi(`https://api.tvmaze.com/shows/${selectedShowId}/episodes`);
+      });
+      root.appendChild(showCard);
+    }
   });
 }
 
@@ -368,15 +387,29 @@ function createEpisodeCard(episode) {
   return card;
 }
 
+// Level 200
+function addFilterListener(allEpisodes) {
+  const searchInput = document.getElementById("search-bar");
+  searchInput.addEventListener("input", function () {
+    const value = this.value.toLowerCase();
+    const filteredEpisodes = allEpisodes.filter((episode) => {
+      return (
+        episode.name.toLowerCase().includes(value) ||
+        episode.summary.toLowerCase().includes(value)
+      );
+    });
+    makePageForEpisodes(filteredEpisodes);
+  });
+}
 //
-/* const select = document.getElementById("episode-select");
+/*  const select = document.getElementById("episode-select");
 const selectOption = document.createElement("option");
 selectOption.innerText = "Select an Episode";
 selectOption.value = "AllEpisodes";
 select.appendChild(selectOption);
 
 
-function addSelectListener(allEpisodes) {
+function addEpisodeSelectListener(allEpisodes) {
   allEpisodes.forEach((episode) => {
     const option = document.createElement("option");
     option.value = episode.id;
@@ -397,8 +430,9 @@ function addSelectListener(allEpisodes) {
       showSingle(selectedEpisode);
     }
   });
-}
+} */
 
+/*
 // Show a single episode
 function showSingle(episode) {
   const rootElem = document.getElementById("root");
