@@ -1,3 +1,139 @@
-#root {
-  color: red;
+/* body{
+  background-color: rgb(176, 65, 65);
 }
+#root {
+  color: rgb(41, 7, 7);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#root > * {
+  flex-basis: 25%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  margin: 10px;
+}
+
+.card {
+  border: 2px solid grey;
+}
+
+
+#search-div {
+  border: 2px solid grey;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 70px;
+  margin-left: 105px;
+  margin-right: 105px;
+}
+#search-bar {
+  border: 2px solid grey;
+  height: 20px;
+  width: 200px;
+  margin-top: 20px;
+}
+
+#episode-select{
+  width: 200px;
+} */
+
+body {
+  background-color: rgb(32, 29, 29);
+  margin: 0px;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 210px;
+  background-color: rgb(95, 108, 119);
+  z-index: 999;
+}
+#cinema{
+  background-color: rgb(166, 97, 48);
+  width: 60px;
+  height: 60px;
+  font-size: 46px;
+}
+#header-top h1{
+  text-align:initial;
+}
+#header-bottom {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 170px;
+  margin-right: 170px;
+}
+#matches{
+  color: aliceblue;
+}
+/* root */
+main {
+  margin: 50px;
+  margin-top: 300px;
+}
+#root {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.show-card {
+  border: 2px solid white;
+  margin: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+  background-color: rgb(77, 115, 102);
+}
+.show-card:hover {
+  transform: scale(1.1);
+  background-color: rgb(95, 188, 172);
+  
+}
+.show-card h1 {
+  color: aliceblue;
+}
+.show-card img {
+  height: 300px;
+  width: 90%;
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.show-card b{
+  color: rgba(255, 217, 0, 0.807);
+  width: 1px;
+  align-self:flex-end;
+  
+}
+
+.card-top{
+  display: flex;
+  justify-content: space-between;
+  margin: 4px;
+}
+
+.genre{
+  color: darkorange;
+}
+
+/* end of root */
+
+/* episode */
+.episode-card{
+  border: 2px solid white;
+  margin: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+  background-color: rgb(77, 115, 102);
+}
+
+/* end of episode */
