@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TV Show Project | Saim Korkmaz (nsaimk)</title>
+    <link href="./css/style.css" rel="stylesheet" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  </head>
+
+  <body>
+    <header class="bg-gray-800 text-white p-4">
+      <div id="header-top" class="text-2xl font-bold">
+        TV SHOW DOM Project
+      </div>
+      <div id="header-bottom" class="flex items-center justify-between mt-4">
+        <div class="flex items-center">
+          <button id="cinema" class="text-xl">&#127917;</button>
+        </div>
+        <div>
+          <select id="show-selector" class="bg-gray-700 text-white px-2 py-1 border border-gray-600 rounded">
+          </select>
+        </div>
+        <div id="episodeSearch" class="flex-grow">
+        </div>
+        <div class="flex items-center">
+          <input type="text" id="search-bar" placeholder="Search here..."
+            class="px-2 py-1 border border-gray-600 rounded mr-2">
+          <p id="matches" class="text-gray-300">Shows displayed</p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div id="root">
+      </div>
+    </main>
+
+    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+    <script src="episodes.js"></script>
+    <!-- Loads all Shows -->
+    <script src="shows.js"></script>
+    <!-- Loads YOUR javascript code -->
+    <script src="script.js"></script>
+    <p style="color: aliceblue; margin-left: 60px;">
+      The data has (originally) come fromTVMaze.com, only used for education
+      purpose. Contact for any issues
+      <a href="mailto:nsaimkorkmaz1@gmail.com">email me</a>
+    </p>
+  </body>
+</html>
