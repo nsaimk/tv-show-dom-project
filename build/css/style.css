@@ -632,3 +632,106 @@ video {
 .radial-blue{
   background: radial-gradient(yellow, red);
 }
+
+header{
+  width: auto;
+  height: 200px;
+}
+
+/* /// \\\ */
+/* MY CSS */
+
+
+header {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 210px;
+  background-color: rgb(95, 108, 119);
+  z-index: 999;
+}
+#cinema{
+  background-color: rgb(166, 97, 48);
+  width: 60px;
+  height: 60px;
+  font-size: 46px;
+}
+#header-top {
+  padding-left: 150px;
+  text-align:initial;
+}
+#header-bottom {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 170px;
+  margin-right: 170px;
+}
+#matches{
+  color: aliceblue;
+}
+/* root */
+main {
+  margin: 50px;
+  margin-top: 250px;
+}
+#root {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0px;
+}
+
+.show-card {
+  border: 2px solid white;
+  margin: 25px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+  /* background-color: rgb(77, 115, 102); */
+  background-color: rgb(49, 65, 88);
+}
+.show-card:hover {
+  transform: scale(1.02);
+ /*  background-color: rgb(95, 188, 172); */
+ background-color: rgb(31 41 55);
+  
+}
+.show-card h1 {
+  color: aliceblue;
+}
+.show-card img {
+  height: 300px;
+  width: 90%;
+  margin-left: 15px;
+  margin-right: 5px;
+}
+
+.show-card b{
+  color: rgba(255, 217, 0, 0.807);
+  width: 1px;
+  align-self:flex-end;
+  
+}
+
+.card-top{
+  display: flex;
+  justify-content: space-between;
+  margin: 4px;
+}
+
+.genre{
+  color: darkorange;
+}
+
+/* end of root */
+
+/* episode */
+.episode-card{
+  border: 0px solid rgba(255, 255, 255, 0);
+  margin: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+  background-color: rgb(77, 115, 102);
+}
